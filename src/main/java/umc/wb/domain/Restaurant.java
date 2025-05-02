@@ -53,4 +53,15 @@ public class Restaurant {
                 .mapToDouble(Review::getRating).average()
                 .orElse(0);
     }
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", score=" + averageRating +
+                ", region=" + (region != null ? region.getName() : "N/A") + // region의 이름 출력
+                '}';
+    }
 }

@@ -19,6 +19,7 @@ public class Category {
     @Column(nullable = false, length = 20)
     private String name;
 
+    @Builder.Default
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Restaurant> restaurants = new ArrayList<>();
 }

@@ -1,7 +1,6 @@
 package umc.wb.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.*;
 import umc.wb.domain.enums.Gender;
 import umc.wb.domain.enums.MemberStatus;
@@ -32,7 +31,6 @@ public class Member extends BaseEntity {
 
     private LocalDate inactiveDate;
 
-    @Email
     @Column(nullable = false, length = 50)
     private String email;
 
@@ -50,12 +48,15 @@ public class Member extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
     private MemberStatus status;
 
+    @Builder.Default
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberPreference> preferences = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberMission> memberMissions = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 

@@ -19,6 +19,7 @@ public class Region {
     @Column(nullable = false, length = 10)
     private String name;
 
+    @Builder.Default
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Restaurant> restaurants = new ArrayList<>();
 
