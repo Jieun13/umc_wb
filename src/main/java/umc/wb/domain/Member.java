@@ -2,6 +2,8 @@ package umc.wb.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.wb.domain.enums.Gender;
 import umc.wb.domain.enums.MemberStatus;
 import umc.wb.domain.enums.SocialType;
@@ -15,6 +17,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@DynamicUpdate
+@DynamicInsert
 public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +35,7 @@ public class Member extends BaseEntity {
 
     private LocalDate inactiveDate;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = true, length = 50) //nullable 바꿔둔 상태, 나중에 수정해야 함
     private String email;
 
     @Builder.Default

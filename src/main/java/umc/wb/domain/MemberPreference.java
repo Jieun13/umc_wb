@@ -13,10 +13,19 @@ public class MemberPreference {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     private Category category;
+
+    public void setMember(Member member){
+        if(this.member != null)
+            member.getPreferences().remove(this);
+        this.member = member;
+        member.getPreferences().add(this);
+    }
 }
