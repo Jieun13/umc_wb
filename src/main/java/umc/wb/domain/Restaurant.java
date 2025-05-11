@@ -38,6 +38,11 @@ public class Restaurant {
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
+    public void setCategory(Category category) {
+        this.category = category;
+        category.getRestaurants().add(this);
+    }
+
     public void addReview(Review review) {
         this.reviews.add(review);
         review.setRestaurant(this);

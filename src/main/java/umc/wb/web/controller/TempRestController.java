@@ -11,7 +11,7 @@ import umc.wb.service.TempService.TempQueryService;
 import umc.wb.web.dto.TempResponse;
 
 @RestController
-@RequestMapping("/temp")
+@RequestMapping("/api/temp")
 @RequiredArgsConstructor
 public class TempRestController {
 

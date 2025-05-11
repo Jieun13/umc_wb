@@ -15,11 +15,11 @@ import umc.wb.web.dto.MemberResponse;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/members")
+@RequestMapping("/api/members")
 public class MemberRestController {
     private final MemberCommandService memberCommandService;
 
-    @PostMapping("/")
+    @PostMapping
     public ApiResponse<MemberResponse.JoinResult> join(@RequestBody @Valid MemberRequest.JoinRequest request){
         Member member = memberCommandService.joinMember(request);
         return ApiResponse.onSuccess(MemberMapper.toJoinResult(member));

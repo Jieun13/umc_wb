@@ -22,4 +22,14 @@ public class Category {
     @Builder.Default
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Restaurant> restaurants = new ArrayList<>();
+
+    public void addRestaurant(Restaurant restaurant) {
+        this.restaurants.add(restaurant);
+        restaurant.setCategory(this);
+    }
+
+    public void removeRestaurant(Restaurant restaurant) {
+        this.restaurants.remove(restaurant);
+        restaurant.setCategory(null);
+    }
 }
