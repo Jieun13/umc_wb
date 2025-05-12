@@ -10,7 +10,7 @@ public class RestaurantResponse {
     @Getter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class CreateResult {
+    public static class CreateRestaurantResult {
         private Long id;
         private String name;
         private String address;

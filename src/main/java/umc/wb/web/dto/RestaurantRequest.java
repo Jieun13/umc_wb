@@ -8,11 +8,11 @@ import umc.wb.validation.annotation.ExistRegion;
 
 public class RestaurantRequest {
     @Getter
-    public static class CreateRequest {
+    public static class CreateRestaurantRequest {
         @NotBlank
         private String name;
 
-        @NotNull
+        @NotBlank
         private String address;
 
         @NotNull

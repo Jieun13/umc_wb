@@ -34,6 +34,9 @@ public class Restaurant {
     @JoinColumn(name = "region_id")
     private Region region;
 
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Mission> missions = new ArrayList<>();
+
     @Builder.Default
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
@@ -57,6 +60,11 @@ public class Restaurant {
         this.averageRating = reviews.stream()
                 .mapToDouble(Review::getRating).average()
                 .orElse(0);
+    }
+
+    public void addMission(Mission mission) {
+        missions.add(mission);
+        mission.setRestaurant(this);
     }
 
     @Override

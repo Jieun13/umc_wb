@@ -5,17 +5,17 @@ import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import umc.wb.apiPayload.code.status.ErrorStatus;
-import umc.wb.service.RegionService;
-import umc.wb.validation.annotation.ExistRegion;
+import umc.wb.apiPayload.exception.GeneralException;
+import umc.wb.service.RestaurantService.RestaurantService;
+import umc.wb.validation.annotation.ExistRestaurant;
 
 @Component
 @RequiredArgsConstructor
-public class RegionExistValidator implements ConstraintValidator<ExistRegion, Long> {
-
-    private final RegionService regionService;
+public class RestaurantExistValidator implements ConstraintValidator<ExistRestaurant, Long> {
+    private final RestaurantService restaurantService;
 
     @Override
-    public void initialize(ExistRegion constraintAnnotation) {
+    public void initialize(ExistRestaurant constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
@@ -25,13 +25,12 @@ public class RegionExistValidator implements ConstraintValidator<ExistRegion, Lo
             return true;
         }
 
-        boolean isVaild = regionService.isRegionExist(aLong);
+        boolean isValid = restaurantService.isExist(aLong);
 
-        if (!isVaild) {
+        if (!isValid) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(ErrorStatus.REGION_NOT_FOUND.toString()).addConstraintViolation();
+            context.buildConstraintViolationWithTemplate(ErrorStatus.RESTAURANT_NOT_FOUND.toString()).addConstraintViolation();
         }
-
-        return isVaild;
+        return isValid;
     }
 }

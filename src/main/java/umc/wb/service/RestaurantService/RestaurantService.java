@@ -21,12 +21,20 @@ public class RestaurantService {
     private final RegionService regionService;
 
     @Transactional
-    public Restaurant createRestaurant(Long regionId, RestaurantRequest.CreateRequest request) {
+    public Restaurant createRestaurant(Long regionId, RestaurantRequest.CreateRestaurantRequest request) {
         Region region = regionService.findById(regionId);
         Category category = categoryService.findById(request.getCategoryId());
 
         Restaurant restaurant = RestaurantMapper.toRestaurant(request, region, category);
         return restaurantRepository.save(restaurant);
+    }
+
+    public boolean isExist(Long aLong) {
+        return restaurantRepository.existsById(aLong);
+    }
+
+    public Restaurant findById(Long restaurantId) {
+        return restaurantRepository.findById(restaurantId).orElseThrow(()->new IllegalArgumentException("Restaurant not found"));
     }
 }
 

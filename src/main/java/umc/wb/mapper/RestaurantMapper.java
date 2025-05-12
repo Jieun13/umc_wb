@@ -5,7 +5,7 @@ import umc.wb.web.dto.RestaurantRequest;
 import umc.wb.web.dto.RestaurantResponse;
 
 public class RestaurantMapper {
-    public static Restaurant toRestaurant(RestaurantRequest.CreateRequest request, Region region, Category category) {
+    public static Restaurant toRestaurant(RestaurantRequest.CreateRestaurantRequest request, Region region, Category category) {
 
         Restaurant restaurant = Restaurant.builder()
                 .name(request.getName())
@@ -18,8 +18,8 @@ public class RestaurantMapper {
         return restaurant;
     }
 
-    public static RestaurantResponse.CreateResult toResponse(Restaurant restaurant) {
-        return RestaurantResponse.CreateResult.builder()
+    public static RestaurantResponse.CreateRestaurantResult toResponse(Restaurant restaurant) {
+        return RestaurantResponse.CreateRestaurantResult.builder()
                 .id(restaurant.getId())
                 .name(restaurant.getName())
                 .address(restaurant.getAddress())

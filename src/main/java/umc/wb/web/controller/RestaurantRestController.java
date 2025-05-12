@@ -7,6 +7,7 @@ import umc.wb.apiPayload.ApiResponse;
 import umc.wb.domain.Restaurant;
 import umc.wb.mapper.RestaurantMapper;
 import umc.wb.service.RestaurantService.RestaurantService;
+import umc.wb.validation.annotation.ExistRegion;
 import umc.wb.web.dto.RestaurantRequest;
 import umc.wb.web.dto.RestaurantResponse;
 
@@ -18,7 +19,7 @@ public class RestaurantRestController {
     private final RestaurantService restaurantService;
 
     @PostMapping("/{regionId}/restaurants")
-    public ApiResponse<RestaurantResponse.CreateResult> addRestaurant(@PathVariable Long regionId, @Valid @RequestBody RestaurantRequest.CreateRequest request){
+    public ApiResponse<RestaurantResponse.CreateRestaurantResult> addRestaurant(@ExistRegion @PathVariable Long regionId, @Valid @RequestBody RestaurantRequest.CreateRestaurantRequest request){
         Restaurant restaurant = restaurantService.createRestaurant(regionId, request);
         return ApiResponse.onSuccess(RestaurantMapper.toResponse(restaurant));
     }
