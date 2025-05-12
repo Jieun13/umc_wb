@@ -15,7 +15,7 @@ public class MemberRequest {
         @NotBlank
         String name;
 
-        @NotNull
+        @NotBlank
         String phone;
 
 //        String email;

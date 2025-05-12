@@ -38,4 +38,12 @@ public class MemberCommandServiceImpl implements MemberCommandService{
         preferences.forEach(memberPreference -> memberPreference.setMember(newMember));
         return memberRepository.save(newMember);
     }
+
+    public boolean isExist(Long memberId) {
+        return memberRepository.existsById(memberId);
+    }
+
+    public Member findById(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(()->new IllegalArgumentException("Member not found"));
+    }
 }
