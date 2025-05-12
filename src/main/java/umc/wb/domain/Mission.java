@@ -25,6 +25,7 @@ public class Mission extends BaseEntity {
 
     private LocalDateTime dueDate;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
@@ -35,5 +36,10 @@ public class Mission extends BaseEntity {
     public void addMemberMission(MemberMission memberMission) {
         memberMissions.add(memberMission);
         memberMission.setMission(this);
+    }
+
+    public void removeMemberMission(MemberMission memberMission) {
+        memberMissions.remove(memberMission);
+        memberMission.setMission(null);
     }
 }
