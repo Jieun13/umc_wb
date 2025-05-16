@@ -4,4 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import umc.wb.domain.MemberMission;
 
 public interface MemberMissionRepository extends JpaRepository<MemberMission, Long> {
+    boolean existsMemberMissionByMemberIdAndMissionId(Long memberId, Long missionId);
 }

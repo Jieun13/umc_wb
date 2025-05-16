@@ -2,6 +2,7 @@ package umc.wb.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umc.wb.apiPayload.ApiResponse;
 import umc.wb.domain.Member;
@@ -18,6 +19,7 @@ import umc.wb.web.dto.ReviewResponse;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/restaurants/{restaurantId}/reviews")
+@Validated
 public class ReviewRestController {
 
     private final ReviewService reviewService;

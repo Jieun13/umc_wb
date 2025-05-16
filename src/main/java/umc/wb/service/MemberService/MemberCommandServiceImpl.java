@@ -40,6 +40,7 @@ public class MemberCommandServiceImpl implements MemberCommandService{
     }
 
     public boolean isExist(Long memberId) {
+        System.out.println("✅ memberService.isExist 호출됨: " + memberId);
         return memberRepository.existsById(memberId);
     }
 

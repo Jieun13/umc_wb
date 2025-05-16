@@ -2,6 +2,7 @@ package umc.wb.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umc.wb.apiPayload.ApiResponse;
 import umc.wb.domain.Mission;
@@ -16,6 +17,7 @@ import umc.wb.web.dto.MissionResponse;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/restaurants/{restaurantId}/missions")
+@Validated
 public class MissionRestController {
     private final MissionService missionService;
     private final RestaurantService restaurantService;

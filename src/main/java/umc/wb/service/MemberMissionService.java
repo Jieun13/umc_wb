@@ -20,4 +20,8 @@ public class MemberMissionService {
         MemberMission memberMission = MemberMissionMapper.toMemberMission(request, mission, member);
         return memberMissionRepository.save(memberMission);
     }
+
+    public boolean isExist(Long memberId, Long missionId) {
+        return memberMissionRepository.existsMemberMissionByMemberIdAndMissionId(memberId, missionId);
+    }
 }
