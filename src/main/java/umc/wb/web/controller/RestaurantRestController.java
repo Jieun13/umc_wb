@@ -11,16 +11,17 @@ import umc.wb.service.RestaurantService.RestaurantService;
 import umc.wb.validation.annotation.ExistRegion;
 import umc.wb.web.dto.RestaurantRequest;
 import umc.wb.web.dto.RestaurantResponse;
+import umc.wb.web.dto.ReviewResponse;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/regions")
+@RequestMapping("/api")
 @Validated
 public class RestaurantRestController {
 
     private final RestaurantService restaurantService;
 
-    @PostMapping("/{regionId}/restaurants")
+    @PostMapping("/regions/{regionId}/restaurants")
     public ApiResponse<RestaurantResponse.CreateRestaurantResult> addRestaurant(@ExistRegion @PathVariable Long regionId, @Valid @RequestBody RestaurantRequest.CreateRestaurantRequest request){
         Restaurant restaurant = restaurantService.createRestaurant(regionId, request);
         return ApiResponse.onSuccess(RestaurantMapper.toResponse(restaurant));
