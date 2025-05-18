@@ -43,5 +43,6 @@ public class ReviewResponse {
         Integer rating;
         LocalDateTime createdAt;
         String content;
+        String restaurantName;
     }
 }

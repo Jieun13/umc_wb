@@ -19,13 +19,14 @@ import umc.wb.mapper.ReviewMapper;
 import umc.wb.service.MemberService.MemberCommandServiceImpl;
 import umc.wb.service.RestaurantService.RestaurantService;
 import umc.wb.service.ReviewService;
+import umc.wb.validation.annotation.ExistMember;
 import umc.wb.validation.annotation.ExistRestaurant;
 import umc.wb.web.dto.ReviewRequest;
 import umc.wb.web.dto.ReviewResponse;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/restaurants/{restaurantId}/reviews")
+@RequestMapping("/api/")
 @Validated
 public class ReviewRestController {
 
@@ -33,7 +34,8 @@ public class ReviewRestController {
     private final RestaurantService restaurantService;
     private final MemberCommandServiceImpl memberCommandServiceImpl;
 
-    @PostMapping
+    @PostMapping("restaurants/{restaurantId}/reviews")
+    @Operation(summary = "리뷰 작성하기 API", description = "식당에 대한 리뷰를 작성하는 API입니다.")
     public ApiResponse<ReviewResponse.CreateReviewResult> createReview(@ExistRestaurant @PathVariable Long restaurantId, @Valid @RequestBody ReviewRequest.CreateReviewRequest request) {
         Restaurant restaurant = restaurantService.findById(restaurantId);
         Member member = memberCommandServiceImpl.findById(request.getMemberId());
@@ -41,8 +43,8 @@ public class ReviewRestController {
         return ApiResponse.onSuccess(ReviewMapper.toResponse(review));
     }
 
-    @GetMapping
-    @Operation(summary = "특정 가게의 리뷰 목록 조회 API",description = "특정 가게의 리뷰들의 목록을 조회하는 API이며, 페이징을 포함합니다. query String 으로 page 번호를 주세요")
+    @GetMapping("restaurants/{restaurantId}/reviews")
+    @Operation(summary = "특정 가게의 리뷰 목록 조회하기 API",description = "특정 가게의 리뷰들의 목록을 조회하는 API이며, 페이징을 포함합니다. query String 으로 page 번호를 주세요")
     @ApiResponses({
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200",description = "OK, 성공"),
             @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "AUTH003", description = "access 토큰을 주세요!",content = @Content(schema = @Schema(implementation = ApiResponse.class))),
@@ -53,7 +55,7 @@ public class ReviewRestController {
             @Parameter(name = "restaurantId", description = "가게의 아이디, path variable 입니다!")
     })
     public ApiResponse<ReviewResponse.ReviewPreviewList> getReviews(@ExistRestaurant @PathVariable Long restaurantId, @RequestParam(name = "page") Integer page) {
-        Page<Review> reviews = reviewService.getReviewList(restaurantId, page);
+        Page<Review> reviews = reviewService.getReviewList(restaurantId, page-1);
         return ApiResponse.onSuccess(ReviewMapper.reviewPreviewList(reviews));
     }
 }

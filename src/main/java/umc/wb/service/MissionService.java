@@ -3,7 +3,10 @@ package umc.wb.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import umc.wb.domain.Member;
 import umc.wb.domain.Mission;
 import umc.wb.domain.Restaurant;
 import umc.wb.mapper.MissionMapper;
@@ -28,5 +31,9 @@ public class MissionService {
 
     public Mission findById(Long missionId) {
         return missionRepository.findById(missionId).orElseThrow(() -> new IllegalArgumentException("Mission not found"));
+    }
+
+    public Page<Mission> getAllByRestaurant(Long restaurantId, Integer page) {
+        return missionRepository.findAllByRestaurantId(restaurantId, PageRequest.of(page, 10));
     }
 }

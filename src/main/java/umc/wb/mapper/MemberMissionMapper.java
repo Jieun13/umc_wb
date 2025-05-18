@@ -30,4 +30,16 @@ public class MemberMissionMapper {
                 .memberName(memberMission.getMember().getName())
                 .build();
     }
+
+    public static MemberMissionResponse.MemberMissionView toView(MemberMission memberMission){
+        return MemberMissionResponse.MemberMissionView.builder()
+                .memberName(memberMission.getMember().getName())
+                .missionName(memberMission.getMission().getName())
+                .RestaurantName(memberMission.getMission().getRestaurant().getName())
+                .missionDueDate(memberMission.getMission().getDueDate())
+                .missionRewardPoints(memberMission.getMission().getRewardPoints())
+                .missionSpentAmount(memberMission.getMission().getSpentAmount())
+                .status(memberMission.getStatus())
+                .build();
+    }
 }

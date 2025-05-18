@@ -52,6 +52,7 @@ public class ReviewMapper {
                 .rating(review.getRating())
                 .memberName(review.getMember().getName())
                 .createdAt(review.getCreatedAt())
+                .restaurantName(review.getRestaurant().getName())
                 .build();
     }
 }

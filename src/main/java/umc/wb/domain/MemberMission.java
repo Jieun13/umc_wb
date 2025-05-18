@@ -24,4 +24,8 @@ public class MemberMission extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    public void updateStatus(Status status) {
+        this.status = status;
+    }
 }

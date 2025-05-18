@@ -1,5 +1,6 @@
 package umc.wb.web.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import umc.wb.validation.annotation.ExistMember;
@@ -17,5 +18,12 @@ public class MemberMissionRequest {
         @NotNull
         @ExistMission
         Long missionId;
+    }
+
+    @Getter
+    public static class UpdateStatusRequest{
+        @NotNull
+        Integer statusNum;
+        //PENDING(0), COMPLETED(1), IN_PROGRESS(2), EXPIRED(3)
     }
 }
