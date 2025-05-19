@@ -11,6 +11,7 @@ import umc.wb.domain.Mission;
 import umc.wb.domain.Restaurant;
 import umc.wb.mapper.MissionMapper;
 import umc.wb.repository.MissionRepository;
+import umc.wb.repository.RestaurantRepository.RestaurantRepository;
 import umc.wb.web.dto.MissionRequest;
 
 @Service
@@ -18,9 +19,11 @@ import umc.wb.web.dto.MissionRequest;
 public class MissionService {
 
     private final MissionRepository missionRepository;
+    private final RestaurantRepository restaurantRepository;
 
     @Transactional
-    public Mission CreateMission(MissionRequest.CreateMissionRequest request, Restaurant restaurant) {
+    public Mission CreateMission(MissionRequest.CreateMissionRequest request, Long restaurantId) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).orElseThrow(()->new IllegalArgumentException("Restaurant not found"));
         Mission mission = MissionMapper.toMission(request, restaurant);
         return missionRepository.save(mission);
     }

@@ -16,6 +16,7 @@ import umc.wb.service.MemberMissionService;
 import umc.wb.service.MemberService.MemberCommandServiceImpl;
 import umc.wb.service.MissionService;
 import umc.wb.validation.annotation.ExistMemberMission;
+import umc.wb.validation.annotation.ValidMemberMission;
 import umc.wb.web.dto.MemberMissionRequest;
 import umc.wb.web.dto.MemberMissionResponse;
 import umc.wb.web.dto.MissionResponse;
@@ -40,7 +41,7 @@ public class MemberMissionRestController {
     @Parameters({
             @Parameter(name = "memberMissionId", description = "도전 중인 미션의 아이디, path variable 입니다!")
     })
-    public ApiResponse<MemberMissionResponse.MemberMissionView> updateMissionStatus(@PathVariable Long memberMissionId, @Valid @RequestBody MemberMissionRequest.UpdateStatusRequest request){
+    public ApiResponse<MemberMissionResponse.MemberMissionView> updateMissionStatus(@ValidMemberMission @PathVariable Long memberMissionId, @Valid @RequestBody MemberMissionRequest.UpdateStatusRequest request){
         MemberMission memberMission = memberMissionService.update(memberMissionId, request);
         return ApiResponse.onSuccess(MemberMissionMapper.toView(memberMission));
     }

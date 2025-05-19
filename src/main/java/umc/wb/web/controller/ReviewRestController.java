@@ -21,6 +21,7 @@ import umc.wb.service.RestaurantService.RestaurantService;
 import umc.wb.service.ReviewService;
 import umc.wb.validation.annotation.ExistMember;
 import umc.wb.validation.annotation.ExistRestaurant;
+import umc.wb.validation.annotation.ValidPage;
 import umc.wb.web.dto.ReviewRequest;
 import umc.wb.web.dto.ReviewResponse;
 
@@ -54,8 +55,8 @@ public class ReviewRestController {
     @Parameters({
             @Parameter(name = "restaurantId", description = "가게의 아이디, path variable 입니다!")
     })
-    public ApiResponse<ReviewResponse.ReviewPreviewList> getReviews(@ExistRestaurant @PathVariable Long restaurantId, @RequestParam(name = "page") Integer page) {
-        Page<Review> reviews = reviewService.getReviewList(restaurantId, page-1);
+    public ApiResponse<ReviewResponse.ReviewPreviewList> getReviews(@ExistRestaurant @PathVariable Long restaurantId, @RequestParam(name = "page") @ValidPage Integer page) {
+        Page<Review> reviews = reviewService.getReviewList(restaurantId, page);
         return ApiResponse.onSuccess(ReviewMapper.reviewPreviewList(reviews));
     }
 }

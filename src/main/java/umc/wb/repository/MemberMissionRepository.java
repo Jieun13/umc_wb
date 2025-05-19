@@ -1,5 +1,8 @@
 package umc.wb.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import umc.wb.domain.MemberMission;
@@ -14,4 +17,9 @@ public interface MemberMissionRepository extends JpaRepository<MemberMission, Lo
     })
     Optional<MemberMission> findById(Long id);
     MemberMission findByMemberIdAndMissionId(Long memberId, Long missionId);
+
+    @EntityGraph(attributePaths = {
+            "member", "mission", "mission.restaurant"
+    })
+    Page<MemberMission> findByMemberId(Long memberId, Pageable pageable);
 }

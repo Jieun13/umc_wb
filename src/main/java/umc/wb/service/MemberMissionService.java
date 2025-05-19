@@ -2,6 +2,8 @@ package umc.wb.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import umc.wb.domain.Member;
 import umc.wb.domain.MemberMission;
@@ -12,6 +14,7 @@ import umc.wb.repository.MemberMissionRepository;
 import umc.wb.repository.MemberRepository;
 import umc.wb.repository.MissionRepository;
 import umc.wb.web.dto.MemberMissionRequest;
+import umc.wb.web.dto.MemberMissionResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +40,13 @@ public class MemberMissionService {
         MemberMission memberMission = memberMissionRepository.findById(id).orElseThrow(()->new IllegalArgumentException("MemberMission not found"));
         memberMission.updateStatus(Status.fromCode(request.getStatusNum()));
         return memberMissionRepository.save(memberMission);
+    }
+
+    public Page<MemberMission> getAllByMemberId(Long memberId, int page) {
+        return memberMissionRepository.findByMemberId(memberId, PageRequest.of(page, 10));
+    }
+
+    public boolean getById(Long aLong) {
+        return memberMissionRepository.existsById(aLong);
     }
 }

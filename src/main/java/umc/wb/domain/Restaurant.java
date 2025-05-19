@@ -34,6 +34,7 @@ public class Restaurant {
     @JoinColumn(name = "region_id")
     private Region region;
 
+    @Builder.Default
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Mission> missions = new ArrayList<>();
 

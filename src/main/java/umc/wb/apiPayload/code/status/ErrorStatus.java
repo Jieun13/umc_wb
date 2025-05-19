@@ -22,6 +22,9 @@ public enum ErrorStatus implements BaseErrorCode {
     RESTAURANT_NOT_FOUND(HttpStatus.NOT_FOUND, "RESTAURANT401", "음식점이 없습니다."),
     MISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "MISSION401", "미션이 없습니다."),
     MEMBERMISSION_ALREADY_EXIST(HttpStatus.BAD_REQUEST, "MEMBERMISSION400", "이미 도전 중인 미션입니다."),
+    MEMBERMISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "MEMBERMISSION401", "미션이 없습니다."),
+
+    PAGE_BAD_REQUEST(HttpStatus.BAD_REQUEST, "PAGE400", "페이지는 1 이상의 정수 값을 입력해야 합니다."),
 
     TEMP_EXCEPTION(HttpStatus.BAD_REQUEST, "TEMP4001", "테스트용"),
 

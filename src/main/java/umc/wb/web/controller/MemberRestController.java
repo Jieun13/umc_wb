@@ -10,12 +10,16 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umc.wb.apiPayload.ApiResponse;
 import umc.wb.domain.Member;
+import umc.wb.domain.MemberMission;
 import umc.wb.domain.Review;
 import umc.wb.mapper.MemberMapper;
+import umc.wb.mapper.MemberMissionMapper;
 import umc.wb.mapper.ReviewMapper;
+import umc.wb.service.MemberMissionService;
 import umc.wb.service.MemberService.MemberCommandService;
 import umc.wb.service.ReviewService;
 import umc.wb.validation.annotation.ExistMember;
+import umc.wb.validation.annotation.ValidPage;
 import umc.wb.web.dto.MemberMissionResponse;
 import umc.wb.web.dto.MemberRequest;
 import umc.wb.web.dto.MemberResponse;
@@ -28,6 +32,7 @@ import umc.wb.web.dto.ReviewResponse;
 public class MemberRestController {
     private final MemberCommandService memberCommandService;
     private final ReviewService reviewService;
+    private final MemberMissionService memberMissionService;
 
     @PostMapping
     @Operation(summary = "사용자 가입 API", description = "사용자를 새로 추가하는 API입니다.")
@@ -41,8 +46,8 @@ public class MemberRestController {
     @Parameters({
             @Parameter(name = "memberId", description = "유저의 아이디, path variable 입니다!")
     })
-    public ApiResponse<ReviewResponse.ReviewPreviewList> getReviewsByMember(@ExistMember @PathVariable Long memberId, @RequestParam(name = "page") Integer page) {
-        Page<Review> reviews = reviewService.getReviewListByMember(memberId, page-1);
+    public ApiResponse<ReviewResponse.ReviewPreviewList> getReviewsByMember(@ExistMember @PathVariable Long memberId, @RequestParam(name = "page") @ValidPage Integer page) {
+        Page<Review> reviews = reviewService.getReviewListByMember(memberId, page);
         return ApiResponse.onSuccess(ReviewMapper.reviewPreviewList(reviews));
     }
 
@@ -51,7 +56,8 @@ public class MemberRestController {
     @Parameters({
             @Parameter(name = "memberId", description = "유저의 아이디, path variable 입니다!")
     })
-    public ApiResponse<MemberMissionResponse.MemberMissionViewList> getReviews(@ExistMember @PathVariable Long memberId, @RequestParam(name = "page") Integer page) {
-        return ApiResponse.onSuccess(null);
+    public ApiResponse<MemberMissionResponse.MemberMissionViewList> getReviews(@ExistMember @PathVariable Long memberId, @RequestParam(name = "page") @ValidPage Integer page) {
+        Page<MemberMission> memberMissionViews = memberMissionService.getAllByMemberId(memberId, page);
+        return ApiResponse.onSuccess(MemberMissionMapper.toViewList(memberMissionViews));
     }
 }

@@ -55,7 +55,6 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
             errors.merge(objectName, errorMessage, (existingErrorMessage, newErrorMessage) -> existingErrorMessage + ", " + newErrorMessage);
         });
 
-        System.out.println("❌ 유효성 예외 발생: " + e.getBindingResult().toString());
         return handleExceptionInternalArgs(e,HttpHeaders.EMPTY,ErrorStatus.valueOf("_BAD_REQUEST"),request,errors);
     }
 
@@ -124,4 +123,21 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
         );
     }
 
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException e, WebRequest request) {
+
+        if (e.getMessage() != null && e.getMessage().contains("Page index must not be less than zero")) {
+            return handleExceptionInternalConstraint(e, ErrorStatus.PAGE_BAD_REQUEST, HttpHeaders.EMPTY, request);
+        }
+
+        return handleExceptionInternalFalse(
+                e,
+                ErrorStatus._INTERNAL_SERVER_ERROR,
+                HttpHeaders.EMPTY,
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                request,
+                e.getMessage()
+        );
+    }
 }
