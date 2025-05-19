@@ -8,18 +8,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umc.wb.apiPayload.ApiResponse;
-import umc.wb.domain.Member;
 import umc.wb.domain.MemberMission;
-import umc.wb.domain.Mission;
 import umc.wb.mapper.MemberMissionMapper;
 import umc.wb.service.MemberMissionService;
-import umc.wb.service.MemberService.MemberCommandServiceImpl;
-import umc.wb.service.MissionService;
-import umc.wb.validation.annotation.ExistMemberMission;
 import umc.wb.validation.annotation.ValidMemberMission;
 import umc.wb.web.dto.MemberMissionRequest;
 import umc.wb.web.dto.MemberMissionResponse;
-import umc.wb.web.dto.MissionResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -45,5 +39,4 @@ public class MemberMissionRestController {
         MemberMission memberMission = memberMissionService.update(memberMissionId, request);
         return ApiResponse.onSuccess(MemberMissionMapper.toView(memberMission));
     }
-    //여기서 membermission이 존재하지 않을 경우 에러 띄워야 하는데 어떡할까.... 일단 상태 변경 자체는 잘 됨!
 }

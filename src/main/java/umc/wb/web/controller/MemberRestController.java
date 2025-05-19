@@ -47,7 +47,7 @@ public class MemberRestController {
             @Parameter(name = "memberId", description = "유저의 아이디, path variable 입니다!")
     })
     public ApiResponse<ReviewResponse.ReviewPreviewList> getReviewsByMember(@ExistMember @PathVariable Long memberId, @RequestParam(name = "page") @ValidPage Integer page) {
-        Page<Review> reviews = reviewService.getReviewListByMember(memberId, page);
+        Page<Review> reviews = reviewService.getReviewListByMember(memberId, page-1);
         return ApiResponse.onSuccess(ReviewMapper.reviewPreviewList(reviews));
     }
 
@@ -57,7 +57,7 @@ public class MemberRestController {
             @Parameter(name = "memberId", description = "유저의 아이디, path variable 입니다!")
     })
     public ApiResponse<MemberMissionResponse.MemberMissionViewList> getReviews(@ExistMember @PathVariable Long memberId, @RequestParam(name = "page") @ValidPage Integer page) {
-        Page<MemberMission> memberMissionViews = memberMissionService.getAllByMemberId(memberId, page);
+        Page<MemberMission> memberMissionViews = memberMissionService.getAllByMemberId(memberId, page-1);
         return ApiResponse.onSuccess(MemberMissionMapper.toViewList(memberMissionViews));
     }
 }

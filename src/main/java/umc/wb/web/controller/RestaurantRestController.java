@@ -1,8 +1,6 @@
 package umc.wb.web.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -11,13 +9,9 @@ import umc.wb.apiPayload.ApiResponse;
 import umc.wb.domain.Restaurant;
 import umc.wb.mapper.RestaurantMapper;
 import umc.wb.service.RestaurantService.RestaurantService;
-import umc.wb.validation.annotation.ExistMember;
 import umc.wb.validation.annotation.ExistRegion;
-import umc.wb.validation.annotation.ExistRestaurant;
-import umc.wb.web.dto.MissionResponse;
 import umc.wb.web.dto.RestaurantRequest;
 import umc.wb.web.dto.RestaurantResponse;
-import umc.wb.web.dto.ReviewResponse;
 
 @RestController
 @RequiredArgsConstructor

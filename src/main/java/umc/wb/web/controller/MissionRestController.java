@@ -10,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umc.wb.apiPayload.ApiResponse;
 import umc.wb.domain.Mission;
-import umc.wb.domain.Restaurant;
 import umc.wb.mapper.MissionMapper;
 import umc.wb.service.MissionService;
 import umc.wb.service.RestaurantService.RestaurantService;
@@ -40,7 +39,7 @@ public class MissionRestController {
             @Parameter(name = "restaurantId", description = "가게의 아이디, path variable 입니다!")
     })
     public ApiResponse<MissionResponse.MissionViewList> getMissions(@ExistRestaurant @PathVariable Long restaurantId, @RequestParam(name = "page") @ValidPage Integer page) {
-        Page<Mission> missions = missionService.getAllByRestaurant(restaurantId, page);
+        Page<Mission> missions = missionService.getAllByRestaurant(restaurantId, page-1);
         return ApiResponse.onSuccess(MissionMapper.toViewList(missions));
     }
 }
