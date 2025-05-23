@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 
 @Documented
 @Constraint(validatedBy = PageValidator.class)
-@Target({ ElementType.PARAMETER })
+@Target({ ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidPage {
     String message() default "유효하지 않은 페이지 값입니다.";

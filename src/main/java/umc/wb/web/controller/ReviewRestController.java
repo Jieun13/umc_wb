@@ -54,8 +54,8 @@ public class ReviewRestController {
     @Parameters({
             @Parameter(name = "restaurantId", description = "가게의 아이디, path variable 입니다!")
     })
-    public ApiResponse<ReviewResponse.ReviewPreviewList> getReviews(@ExistRestaurant @PathVariable Long restaurantId, @RequestParam(name = "page") @ValidPage Integer page) {
-        Page<Review> reviews = reviewService.getReviewList(restaurantId, page-1);
+    public ApiResponse<ReviewResponse.ReviewPreviewList> getReviews(@ExistRestaurant @PathVariable Long restaurantId, @ValidPage Integer page) {
+        Page<Review> reviews = reviewService.getReviewList(restaurantId, page);
         return ApiResponse.onSuccess(ReviewMapper.reviewPreviewList(reviews));
     }
 }

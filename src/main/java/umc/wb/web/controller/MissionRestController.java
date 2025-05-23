@@ -38,8 +38,8 @@ public class MissionRestController {
     @Parameters({
             @Parameter(name = "restaurantId", description = "가게의 아이디, path variable 입니다!")
     })
-    public ApiResponse<MissionResponse.MissionViewList> getMissions(@ExistRestaurant @PathVariable Long restaurantId, @RequestParam(name = "page") @ValidPage Integer page) {
-        Page<Mission> missions = missionService.getAllByRestaurant(restaurantId, page-1);
+    public ApiResponse<MissionResponse.MissionViewList> getMissions(@ExistRestaurant @PathVariable Long restaurantId, @ValidPage Integer page) {
+        Page<Mission> missions = missionService.getAllByRestaurant(restaurantId, page);
         return ApiResponse.onSuccess(MissionMapper.toViewList(missions));
     }
 }
