@@ -1,6 +1,7 @@
 package umc.wb.mapper;
 
 import umc.wb.domain.Member;
+import umc.wb.domain.MemberPreference;
 import umc.wb.domain.enums.Gender;
 import umc.wb.domain.enums.MemberStatus;
 import umc.wb.web.dto.MemberRequest;
@@ -30,10 +31,27 @@ public class MemberMapper {
                 .name(request.getName())
                 .gender(gender)
                 .phone(request.getPhone())
-//                .email(request.getEmail())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .role(request.getRole())
                 .address(request.getAddress())
                 .status(MemberStatus.ACTIVE)
                 .preferences(new ArrayList<>())
+                .build();
+    }
+
+    public static MemberResponse.LoginResult toLoginResult(Long memberId, String accessToken) {
+        return MemberResponse.LoginResult.builder()
+                .memberId(memberId)
+                .accessToken(accessToken)
+                .build();
+    }
+
+    public static MemberResponse.Info toMemberInfo(Member member){
+        return MemberResponse.Info.builder()
+                .name(member.getName())
+                .email(member.getEmail())
+                .gender(member.getGender().name())
                 .build();
     }
 }

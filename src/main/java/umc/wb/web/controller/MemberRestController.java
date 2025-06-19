@@ -3,6 +3,8 @@ package umc.wb.web.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,7 @@ import umc.wb.mapper.MemberMissionMapper;
 import umc.wb.mapper.ReviewMapper;
 import umc.wb.service.MemberMissionService;
 import umc.wb.service.MemberService.MemberCommandService;
+import umc.wb.service.MemberService.MemberQueryService;
 import umc.wb.service.ReviewService;
 import umc.wb.validation.annotation.ExistMember;
 import umc.wb.validation.annotation.ValidPage;
@@ -31,6 +34,7 @@ import umc.wb.web.dto.ReviewResponse;
 @Validated
 public class MemberRestController {
     private final MemberCommandService memberCommandService;
+    private final MemberQueryService memberQueryService;
     private final ReviewService reviewService;
     private final MemberMissionService memberMissionService;
 
@@ -39,6 +43,21 @@ public class MemberRestController {
     public ApiResponse<MemberResponse.JoinResult> join(@RequestBody @Valid MemberRequest.JoinRequest request){
         Member member = memberCommandService.joinMember(request);
         return ApiResponse.onSuccess(MemberMapper.toJoinResult(member));
+    }
+
+    @PostMapping("/login")
+    @Operation(summary = "유저 로그인 API",description = "유저가 로그인하는 API입니다.")
+    public ApiResponse<MemberResponse.LoginResult> login(@RequestBody @Valid MemberRequest.LoginRequest request) {
+        return ApiResponse.onSuccess(memberCommandService.loginMember(request));
+    }
+
+    @GetMapping("/info")
+    @Operation(summary = "유저 내 정보 조회 API - 인증 필요",
+            description = "유저가 내 정보를 조회하는 API입니다.",
+            security = { @SecurityRequirement(name = "JWT TOKEN") }
+    )
+    public ApiResponse<MemberResponse.Info> getMyInfo(HttpServletRequest request) {
+        return ApiResponse.onSuccess(memberQueryService.getMemberInfo(request));
     }
 
     @GetMapping("/{memberId}/reviews")

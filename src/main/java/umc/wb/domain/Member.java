@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import umc.wb.domain.enums.Gender;
 import umc.wb.domain.enums.MemberStatus;
+import umc.wb.domain.enums.Role;
 import umc.wb.domain.enums.SocialType;
 
 import java.time.LocalDate;
@@ -35,8 +36,14 @@ public class Member extends BaseEntity {
 
     private LocalDate inactiveDate;
 
-    @Column(nullable = true, length = 50) //nullable 바꿔둔 상태, 나중에 수정해야 함
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Builder.Default
     private Integer point = 0;
@@ -92,5 +99,9 @@ public class Member extends BaseEntity {
     public void removeMemberMission(MemberMission mission) {
         this.memberMissions.remove(mission);
         mission.setMember(null);
+    }
+
+    public void encodePassword(String password) {
+        this.password = password;
     }
 }

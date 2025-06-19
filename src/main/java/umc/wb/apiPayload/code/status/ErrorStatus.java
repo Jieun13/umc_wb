@@ -28,6 +28,9 @@ public enum ErrorStatus implements BaseErrorCode {
 
     TEMP_EXCEPTION(HttpStatus.BAD_REQUEST, "TEMP4001", "테스트용"),
 
+    INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "MEMBER4003", "유효하지 않은 회원정보입니다."),
+    INVALID_TOKEN(HttpStatus.BAD_REQUEST, "TOKEN4003", "유효하지 않은 토큰입니다."),
+
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "ARTICLE4001", "게시글이 없습니다.");
 
     private final HttpStatus httpStatus;
